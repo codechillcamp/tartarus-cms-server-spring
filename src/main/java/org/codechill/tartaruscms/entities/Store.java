@@ -16,8 +16,6 @@ public class Store implements Serializable {
 
     private String name;
 
-    private String address;
-
-    @Column(name = "logo_url")
-    private String logoURL;
+    @ManyToOne
+    private Long owner_id;
 }
