@@ -6,7 +6,7 @@
 docker run --name postgrescodechill -e POSTGRES_USER=username -e POSTGRES_PASSWORD=password -e POSTGRES_DB=codechill -p 5432:5432 postgres
 ```
 
-Once you've got your container up and running you'll have to configure your <code>application.properties</code> with the following structure
+Once you've got your container up and running you'll have to configure your <code>/src/main/resources/application.properties</code> with the following structure
 
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/codechill
