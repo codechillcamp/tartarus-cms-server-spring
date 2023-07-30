@@ -1,5 +1,7 @@
 package org.codechill.tartaruscms.services;
 
+import org.codechill.tartaruscms.CreateProductRequest;
+import org.codechill.tartaruscms.dto.UpdateProductRequest;
 import org.codechill.tartaruscms.entities.Product;
 import org.codechill.tartaruscms.entities.Store;
 import org.codechill.tartaruscms.repository.ProductRepository;
@@ -22,18 +24,19 @@ public class ProductService implements IProductService {
         return productRepository.findAll();
     }
 
-    public Product create(Product product, Long storeId) {
-        Optional<Store> optionalStore = storeRepository.findById(storeId);
-        Store dbStore = null;
+    public Product create(CreateProductRequest productRequest, Long storeId) {
+        Store dbStore = storeRepository
+                .findById(storeId)
+                .orElse(null);
 
-        if(optionalStore.isPresent()) {
-            dbStore = optionalStore.get();
+        if(dbStore != null) {
+            Product product = new Product(
+                    productRequest.getName(),
+                    productRequest.getPrice(),
+                    productRequest.getImage(),
+                    dbStore);
+
             productRepository.save(product);
-
-            List<Product> products = dbStore.getProducts();
-            products.add(product);
-            dbStore.setProducts(products);
-            storeRepository.save(dbStore);
 
             return product;
         }
@@ -41,13 +44,15 @@ public class ProductService implements IProductService {
         return null;
     }
 
-    public Product update(Product product, Long id) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        Product dbProduct = null;
+    public Product update(UpdateProductRequest product, Long id) {
+        Product dbProduct = productRepository
+                .findById(id)
+                .orElse(null);
 
-        if (optionalProduct.isPresent()) {
-            dbProduct = optionalProduct.get();
+        if (dbProduct != null) {
             dbProduct.setName(product.getName());
+            dbProduct.setPrice(product.getPrice());
+            dbProduct.setImage(product.getImage());
             productRepository.save(dbProduct);
         }
 
@@ -55,13 +60,18 @@ public class ProductService implements IProductService {
     }
 
     public Product findById(Long id) {
-        Optional<Product> optionalProduct = productRepository.findById(id);
-        Product dbProduct = null;
-
-        if (optionalProduct.isPresent()) {
-            dbProduct = optionalProduct.get();
-        }
+        Product dbProduct = productRepository
+                .findById(id)
+                .orElse(null);
 
         return dbProduct;
+    }
+
+    public List<Product> findAllByStoreId(Long id) {
+        List<Product> productList = productRepository
+                .findAllByStoreId(id)
+                .orElse(null);
+
+        return productList;
     }
 }
