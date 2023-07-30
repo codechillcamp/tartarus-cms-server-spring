@@ -2,7 +2,6 @@ package org.codechill.tartaruscms.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Generated;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
