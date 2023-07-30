@@ -1,6 +1,6 @@
 package org.codechill.tartaruscms.controllers;
 
-import org.codechill.tartaruscms.CreateProductRequest;
+import org.codechill.tartaruscms.dto.CreateProductRequest;
 import org.codechill.tartaruscms.dto.UpdateProductRequest;
 import org.codechill.tartaruscms.entities.Product;
 import org.codechill.tartaruscms.services.IProductService;
@@ -30,13 +30,13 @@ public class ProductController {
     }
 
     @PostMapping("/{storeId}")
-    public Product create(@RequestBody CreateProductRequest product, @PathVariable Long storeId) {
-        return productService.create(product, storeId);
+    public Product create(@RequestBody CreateProductRequest product) {
+        return productService.create(product);
     }
 
     @PatchMapping("/{id}")
-    public Product update(@PathVariable Long id, @RequestBody UpdateProductRequest product) {
-        return productService.update(product, id);
+    public Product update(@RequestBody UpdateProductRequest product) {
+        return productService.update(product);
     }
 
     @GetMapping("/all/{storeId}")
