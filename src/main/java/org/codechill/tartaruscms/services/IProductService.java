@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface IProductService {
     public List<Product> findAll();
-    public Product create(CreateProductRequest product);
+    public Product create(CreateProductRequest product, Long storeId);
     public Product update(UpdateProductRequest product, Long id);
     public Product findById(Long id);
     public List<Product> findAllByStoreId(Long id);

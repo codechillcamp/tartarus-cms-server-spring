@@ -26,9 +26,9 @@ public class ProductService implements IProductService {
         return productRepository.findAll();
     }
 
-    public Product create(CreateProductRequest productRequest) {
+    public Product create(CreateProductRequest productRequest, Long storeId) {
         Store dbStore = storeRepository
-                .findById(productRequest.getStoreId())
+                .findById(storeId)
                 .orElse(null);
 
         if (dbStore == null) {
