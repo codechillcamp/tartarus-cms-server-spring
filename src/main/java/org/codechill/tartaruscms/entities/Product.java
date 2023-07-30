@@ -15,13 +15,10 @@ public class Product implements Serializable{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "product_sequence")
     private Long id;
 
-    @Column(name = "name")
     private String name;
 
-    @Column(name = "price")
     private float price;
 
-    @Column(name = "product_image")
     private String image;
 
     @ManyToOne
