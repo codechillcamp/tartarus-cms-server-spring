@@ -15,6 +15,4 @@ public class CreateProductRequest {
     private float price;
 
     private String image;
-
-    private Long storeId;
 }

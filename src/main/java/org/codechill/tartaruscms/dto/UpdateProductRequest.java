@@ -7,9 +7,6 @@ import lombok.Getter;
 @AllArgsConstructor
 @Data
 public class UpdateProductRequest {
-
-    private Long id;
-
     private String name;
 
     private float price;
