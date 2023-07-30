@@ -1,20 +1,19 @@
-package org.codechill.tartaruscms.controllers;
+package org.codechill.tartaruscms.controllers.v1;
 
 import org.codechill.tartaruscms.entities.Store;
 import org.codechill.tartaruscms.services.IStoreService;
-import org.codechill.tartaruscms.services.StoreService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/store")
+@RequestMapping("/api/v1/store")
 public class StoreController {
     private final IStoreService storeService;
 
     @Autowired
-    public StoreController(StoreService storeService) {
+    public StoreController(IStoreService storeService) {
         this.storeService = storeService;
     }
 
