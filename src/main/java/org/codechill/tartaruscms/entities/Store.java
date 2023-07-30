@@ -17,5 +17,5 @@ public class Store implements Serializable {
     private String name;
 
     @ManyToOne
-    private Long owner_id;
+    private User owner;
 }
