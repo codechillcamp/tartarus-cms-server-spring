@@ -29,19 +29,19 @@ public class ProductService implements IProductService {
                 .findById(storeId)
                 .orElse(null);
 
-        if(dbStore != null) {
-            Product product = new Product(
-                    productRequest.getName(),
-                    productRequest.getPrice(),
-                    productRequest.getImage(),
-                    dbStore);
-
-            productRepository.save(product);
-
-            return product;
+        if (dbStore == null) {
+            return null;
         }
 
-        return null;
+        Product product = new Product(
+                productRequest.getName(),
+                productRequest.getPrice(),
+                productRequest.getImage(),
+                dbStore);
+
+        productRepository.save(product);
+
+        return product;
     }
 
     public Product update(UpdateProductRequest product, Long id) {
@@ -49,14 +49,13 @@ public class ProductService implements IProductService {
                 .findById(id)
                 .orElse(null);
 
-        if (dbProduct != null) {
-            dbProduct.setName(product.getName());
-            dbProduct.setPrice(product.getPrice());
-            dbProduct.setImage(product.getImage());
-            productRepository.save(dbProduct);
+        if (dbProduct == null) {
+            return null;
         }
-
-        return dbProduct;
+        dbProduct.setName(product.getName());
+        dbProduct.setPrice(product.getPrice());
+        dbProduct.setImage(product.getImage());
+        return productRepository.save(dbProduct);
     }
 
     public Product findById(Long id) {
