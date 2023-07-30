@@ -29,8 +29,6 @@ public class StoreService implements IStoreService {
         if (optionalStore.isPresent()) {
             dbStore = optionalStore.get();
             dbStore.setName(store.getName());
-            dbStore.setAddress(store.getAddress());
-            dbStore.setLogoURL(store.getLogoURL());
             storeRepository.save(dbStore);
         }
 
