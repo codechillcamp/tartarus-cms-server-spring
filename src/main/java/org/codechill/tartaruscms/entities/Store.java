@@ -16,6 +16,8 @@ public class Store implements Serializable {
 
     private String name;
 
+    private String description;
+
     @ManyToOne
     private User owner;
 }
