@@ -1,4 +1,4 @@
-package org.codechill.tartaruscms;
+package org.codechill.tartaruscms.dto;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

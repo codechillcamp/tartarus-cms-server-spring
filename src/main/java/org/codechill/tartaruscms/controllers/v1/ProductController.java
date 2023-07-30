@@ -1,6 +1,6 @@
-package org.codechill.tartaruscms.controllers;
+package org.codechill.tartaruscms.controllers.v1;
 
-import org.codechill.tartaruscms.CreateProductRequest;
+import org.codechill.tartaruscms.dto.CreateProductRequest;
 import org.codechill.tartaruscms.dto.UpdateProductRequest;
 import org.codechill.tartaruscms.entities.Product;
 import org.codechill.tartaruscms.services.IProductService;
