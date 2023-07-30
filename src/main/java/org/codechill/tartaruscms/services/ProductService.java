@@ -1,13 +1,15 @@
 package org.codechill.tartaruscms.services;
 
-import org.codechill.tartaruscms.CreateProductRequest;
+import org.codechill.tartaruscms.dto.CreateProductRequest;
 import org.codechill.tartaruscms.dto.UpdateProductRequest;
 import org.codechill.tartaruscms.entities.Product;
 import org.codechill.tartaruscms.entities.Store;
 import org.codechill.tartaruscms.repository.ProductRepository;
 import org.codechill.tartaruscms.repository.StoreRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,13 +26,16 @@ public class ProductService implements IProductService {
         return productRepository.findAll();
     }
 
-    public Product create(CreateProductRequest productRequest, Long storeId) {
+    public Product create(CreateProductRequest productRequest) {
         Store dbStore = storeRepository
-                .findById(storeId)
+                .findById(productRequest.getStoreId())
                 .orElse(null);
 
         if (dbStore == null) {
-            return null;
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Invalid Store Provided"
+            );
         }
 
         Product product = new Product(
@@ -39,7 +44,14 @@ public class ProductService implements IProductService {
                 productRequest.getImage(),
                 dbStore);
 
-        productRepository.save(product);
+        try {
+            productRepository.save(product);
+        } catch (Error error) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "Conflict trying to save product:" + product.getName()
+            );
+        }
 
         return product;
     }
@@ -50,7 +62,10 @@ public class ProductService implements IProductService {
                 .orElse(null);
 
         if (dbProduct == null) {
-            return null;
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND,
+                    "Product " + product.getName() + " Not Found"
+            );
         }
         dbProduct.setName(product.getName());
         dbProduct.setPrice(product.getPrice());
@@ -61,7 +76,10 @@ public class ProductService implements IProductService {
     public Product findById(Long id) {
         Product dbProduct = productRepository
                 .findById(id)
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(
+                                HttpStatus.NOT_FOUND,
+                                "Product with id " + id + " Not Found"
+                        ));
 
         return dbProduct;
     }
@@ -69,7 +87,10 @@ public class ProductService implements IProductService {
     public List<Product> findAllByStoreId(Long id) {
         List<Product> productList = productRepository
                 .findAllByStoreId(id)
-                .orElse(null);
+                .orElseThrow(() -> new ResponseStatusException(
+                HttpStatus.NOT_FOUND,
+                "Store with id " + id + " Not Found"
+        ));
 
         return productList;
     }
