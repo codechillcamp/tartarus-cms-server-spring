@@ -1,4 +1,4 @@
-package org.codechill.tartaruscms.controllers;
+package org.codechill.tartaruscms.controllers.v1;
 
 import org.codechill.tartaruscms.entities.Store;
 import org.codechill.tartaruscms.services.IStoreService;
