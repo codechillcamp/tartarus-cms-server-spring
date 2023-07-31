@@ -1,10 +1,11 @@
 package org.codechill.tartaruscms.dto;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 @AllArgsConstructor
-@Getter
+@Data
 public class CreateProductRequest {
 
     private String name;
@@ -12,6 +13,4 @@ public class CreateProductRequest {
     private float price;
 
     private String image;
-
-    private Long storeId;
 }
