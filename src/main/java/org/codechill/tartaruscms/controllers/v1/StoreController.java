@@ -3,6 +3,7 @@ package org.codechill.tartaruscms.controllers.v1;
 import org.codechill.tartaruscms.entities.Store;
 import org.codechill.tartaruscms.services.IStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,6 +23,7 @@ public class StoreController {
         return storeService.findAll();
     }
 
+    @PreAuthorize("@authorizationPermissions.checkPermissions('ADMIN')")
     @GetMapping("/{id}")
     public Store findById(@PathVariable Long id) {
         return storeService.findById(id);
