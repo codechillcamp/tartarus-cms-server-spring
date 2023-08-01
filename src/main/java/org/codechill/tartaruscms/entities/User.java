@@ -7,14 +7,19 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "\"user\"")
 @Data
 @NoArgsConstructor
 public class User implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
-    Long id;
+    private Long id;
 
     @Column(unique = true, nullable = false)
-    String name;
+    private String name;
+
+    @ManyToMany
+    @JoinTable(joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+    private AppRole[] appRoles;
 }
