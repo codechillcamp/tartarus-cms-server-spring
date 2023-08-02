@@ -77,9 +77,9 @@ public class ProductService implements IProductService {
         Product dbProduct = productRepository
                 .findById(id)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Product with id " + id + " Not Found"
-                ));
+                                HttpStatus.NOT_FOUND,
+                                "Product with id " + id + " Not Found"
+                        ));
 
         return dbProduct;
     }
@@ -88,9 +88,9 @@ public class ProductService implements IProductService {
         List<Product> productList = productRepository
                 .findAllByStoreId(id)
                 .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Store with id " + id + " Not Found"
-                ));
+                HttpStatus.NOT_FOUND,
+                "Store with id " + id + " Not Found"
+        ));
 
         return productList;
     }
